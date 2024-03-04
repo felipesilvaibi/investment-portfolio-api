@@ -56,7 +56,7 @@ substitutions:
   _MAX_INSTANCES: "2"
   _MIN_INSTANCES: "0"
   _REGION: "us-east1"
-  _SERVICE_NAME: "example-api"
+  _SERVICE_NAME: "investment-portfolio-api"
   _SERVICE_URL: ""
   _SUFFIX: "-dev"
 

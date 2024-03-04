@@ -3,7 +3,7 @@ name: Terraform Apply
 on:
   workflow_dispatch:
   push:
-    branches: [example-dev, example-staging, example-main]
+    branches: [dev, staging, main]
     paths:
       - infra/**/*
       - src/**/*
@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  BUCKET: example-api
+  BUCKET: investment-portfolio-api
 
 jobs:
   infra:

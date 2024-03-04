@@ -1,4 +1,4 @@
-# icon api-name API
+# 📈 investment-portfolio-api API
 
 ## About
 
@@ -91,7 +91,7 @@ For the current project, we are utilizing Google Cloud to manage the infrastruct
 
 5. **GitHub Actions Secrets**: Access the githubactions service account, generate a `GCP_SA_KEY` in JSON format, and add it to the GitHub repo's actions secrets. Also, add the `GH_TOKEN` (GitHub token) to the repo's secrets.
 
-6. **Cloud Storage Bucket**: Create a bucket in Cloud Storage using the repository name and branch as the naming convention (e.g., `example-api-main`).
+6. **Cloud Storage Bucket**: Create a bucket in Cloud Storage using the repository name and branch as the naming convention (e.g., `investment-portfolio-api-main`).
 
 7. **Cloud Build Repository Connection**: Create and authenticate a connection with your repository in Cloud Build.
 

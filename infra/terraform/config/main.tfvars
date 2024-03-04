@@ -1,7 +1,7 @@
 environment = "production"
 branch      = "main"
 
-gcp_project = "example-project-415904"
+gcp_project = "angular-box-415904"
 gcp_region  = "us-east1"
 gcp_suffix  = ""
 

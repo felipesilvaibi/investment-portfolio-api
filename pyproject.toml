@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "example-api"
+name = "investment-portfolio-api"
 version = "0.1.0"
 description = ""
 authors = ["felipesilvaibi <felipe_ibirama@hotmail.com>"]

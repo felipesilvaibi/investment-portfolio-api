@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  BUCKET: example-api
+  BUCKET: investment-portfolio-api
   GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
 
 jobs:

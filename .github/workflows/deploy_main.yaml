@@ -12,8 +12,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  PROJECT_ID: example-project-415904
-  TRIGGER_NAME: example-api-trigger
+  PROJECT_ID: angular-box-415904
+  TRIGGER_NAME: investment-portfolio-api-trigger
 
 jobs:
   deploy:

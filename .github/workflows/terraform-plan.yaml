@@ -16,7 +16,7 @@ permissions:
   pull-requests: write
 
 env:
-  BUCKET: example-api
+  BUCKET: investment-portfolio-api
 
 jobs:
   infra:

@@ -40,7 +40,7 @@ variable "branch" {
 variable "gcp_service_name" {
   type        = string
   description = "Service name"
-  default     = "example-api"
+  default     = "investment-portfolio-api"
 }
 
 variable "min_instances" {
