@@ -1,0 +1,48 @@
+name: Production
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Terraform Apply"]
+    types: [completed]
+    branches: [main]
+
+concurrency:
+  group: main
+  cancel-in-progress: true
+
+env:
+  PROJECT_ID: example-project-415904
+  TRIGGER_NAME: example-api-trigger
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: main
+
+    permissions:
+      contents: "read"
+      id-token: "write"
+
+    steps:
+      - name: Setup Github Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: "${{ secrets.GCP_SA_KEY }}"
+          project_id: ${{ env.PROJECT_ID }}
+
+      - name: Setup Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+
+      - name: Run Manual Trigger
+        run: |
+          export CLOUDSDK_CORE_DISABLE_PROMPTS=1
+          gcloud builds triggers run ${{ env.TRIGGER_NAME }} \
+            --quiet \
+            --branch=main

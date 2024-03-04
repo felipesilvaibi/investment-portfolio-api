@@ -1,0 +1,80 @@
+name: Terraform Apply
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [example-dev, example-staging, example-main]
+    paths:
+      - infra/**/*
+      - src/**/*
+      - poetry.lock
+
+concurrency:
+  group: tf-apply
+  cancel-in-progress: true
+
+env:
+  BUCKET: example-api
+
+jobs:
+  infra:
+    name: Terraform apply
+    runs-on: ubuntu-latest
+    environment: dev
+
+    defaults:
+      run:
+        working-directory: "./infra/terraform"
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref_name }}
+          token: ${{ secrets.GH_TOKEN }}
+          submodules: true
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: "${{ secrets.GCP_SA_KEY }}"
+
+      - name: Setup Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+
+      - name: Create Bucket
+        run: gcloud storage buckets create gs://${{ env.BUCKET }}-${{ github.ref_name }} --uniform-bucket-level-access
+        continue-on-error: true
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false
+
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: true
+
+      - name: Terraform Init
+        id: init
+        run: terraform init -backend-config="bucket=${{ env.BUCKET }}-${{ github.ref_name }}"
+
+      - name: Terraform Create Workspace
+        run: terraform workspace new ${{ github.ref_name }}
+        continue-on-error: true
+
+      - name: Terraform Select Workspace
+        run: terraform workspace select ${{ github.ref_name }}
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color -var-file="./config/${{ github.ref_name }}.tfvars"
+        continue-on-error: false
+
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply -auto-approve -var-file="./config/${{ github.ref_name }}.tfvars"
