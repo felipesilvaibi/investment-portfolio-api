@@ -1,1 +1,6 @@
 LOG_LEVEL: "INFO"
+
+API_COIN_BASE_BASE_URL: "https://api.exchange.coinbase.com"
+
+NOTIFICATION_CLIENT_URL: "https://notification-api-wx4tnh2atq-ue.a.run.app"
+NOTIFICATION_RECIPIENT_ID: "5034537095"

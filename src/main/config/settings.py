@@ -3,7 +3,9 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     LOG_LEVEL: str = "DEBUG"
-    TELEGRAM_BOT_TOKEN: str = ""
+    API_COIN_BASE_BASE_URL: str = ""
+    NOTIFICATION_CLIENT_URL: str = ""
+    NOTIFICATION_RECIPIENT_ID: str = ""
 
     class Config:
         env_file = ".env"
